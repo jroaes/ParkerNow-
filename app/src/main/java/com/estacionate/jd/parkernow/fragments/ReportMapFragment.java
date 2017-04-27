@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.estacionate.jd.parkernow.R;
+import com.estacionate.jd.parkernow.backend.Parkers;
 import com.estacionate.jd.parkernow.utils.Constants;
 
 import org.osmdroid.util.GeoPoint;
@@ -49,6 +50,8 @@ public class ReportMapFragment extends MapFragment {
             this.mapView.getController().setCenter(new GeoPoint(Constants.concepcionLatitude, Constants.concepcionLongitude));
         }
 
+        Parkers parker = new Parkers();
+        parker.getAllParker();
         Log.d(TAG, "End CreateView");
 
 
