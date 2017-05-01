@@ -1,6 +1,5 @@
 package com.estacionate.jd.parkernow.server.requests.pullRequest;
 
-import android.support.v4.util.Pair;
 import android.util.Log;
 
 import com.estacionate.jd.parkernow.server.requests.Request;
@@ -10,22 +9,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Vector;
-
 
 /**
  * A class extending ARequest, specifically used to request a list of Buses given a BusStop
  */
-public class GetParkersRequest extends Request {
+public class GetParkingsRequest extends Request {
     private String id;
 
     /**
      * The constructor of GetBusesRequest
      *
-     * @param pId The Id of the Parkers to be requested
+     * @param pId The Id of the Parking to be requested
      */
-    public GetParkersRequest(
+    public GetParkingsRequest(
             String pId) {
         super(RequestUrlMapper.getUrlFor(RequestUrlMapper.GET_PARKER_METHOD));
         this.id = pId;

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.estacionate.jd.parkernow.R;
-import com.estacionate.jd.parkernow.backend.Parkers;
+import com.estacionate.jd.parkernow.backend.Parking;
 import com.estacionate.jd.parkernow.utils.Constants;
 
 import org.osmdroid.util.GeoPoint;
@@ -40,18 +40,19 @@ public class ReportMapFragment extends MapFragment {
 
         View view = super.onCreateView(inflater, container, savedInstanceState);
         Bundle arguments = getArguments();
+        this.mapView.getController().setCenter(new GeoPoint(Constants.concepcionLatitude, Constants.concepcionLongitude));
         if (arguments != null) { //The splash screen got the user position and is in the bundle
             Double lat = arguments.getDouble("first_lat");
             Double lon = arguments.getDouble("first_lon");
             this.mapView.getController().setCenter(new GeoPoint(lat, lon));
             currentPosition = new GeoPoint(lat, lon);
         }
-        else{
+        /*else{
             this.mapView.getController().setCenter(new GeoPoint(Constants.concepcionLatitude, Constants.concepcionLongitude));
-        }
+        }*/
 
-        Parkers parker = new Parkers();
-        parker.getAllParker();
+        Parking parking = new Parking();
+        parking.getAllParker();
         Log.d(TAG, "End CreateView");
 
 

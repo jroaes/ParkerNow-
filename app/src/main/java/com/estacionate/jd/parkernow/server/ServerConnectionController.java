@@ -5,10 +5,9 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.estacionate.jd.parkernow.ParkerNowApp;
+import com.estacionate.jd.parkernow.ParkingNowApp;
 import com.estacionate.jd.parkernow.server.requests.Request;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -203,7 +202,7 @@ public class ServerConnectionController {
                     public void callback(String response) {
                         listener.callback(request.processResponse(response));
                         if (message != null) {
-                            Toast.makeText(ParkerNowApp.getAppContext(),
+                            Toast.makeText(ParkingNowApp.getAppContext(),
                                     message, Toast.LENGTH_SHORT).show();
                         }
                         handler.postDelayed(runnableRequest, delay);

@@ -1,29 +1,26 @@
 package com.estacionate.jd.parkernow.map.markers;
 
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
+import com.estacionate.jd.parkernow.backend.Parking;
 import com.estacionate.jd.parkernow.map.FragmentMapView;
-import com.estacionate.jd.parkernow.parkers.Parker;
 
 import org.osmdroid.util.GeoPoint;
-
-import java.util.ArrayList;
 
 /**
  * Created by Jorge on 27-04-2017.
  */
 
-public class ParkerMarker extends LayerMarker {
-    private Parker parker;
+public class ParkingMarker extends LayerMarker {
+    private Parking parking;
     private FragmentMapView mapView;
 
-    public ParkerMarker(Parker parker, FragmentMapView mapView,
-                     OnLayerMarkerClickListener clickListener, Drawable drawable) {
+    public ParkingMarker(Parking parking, FragmentMapView mapView,
+                         OnLayerMarkerClickListener clickListener, Drawable drawable) {
         super(mapView, clickListener, drawable,
-                new GeoPoint(parker.getLat(), parker.getLng()), parker.getId());
+                new GeoPoint(parking.getLat(), parking.getLng()), parking.getId());
 
-        this.parker = parker;
+        this.parking = parking;
         this.mapView = mapView;
 
     }
@@ -37,8 +34,8 @@ public class ParkerMarker extends LayerMarker {
         super.closeInfoWindow();
     }
 
-    public Parker getParker() {
-        return parker;
+    public Parking getParking() {
+        return parking;
     }
 
 
