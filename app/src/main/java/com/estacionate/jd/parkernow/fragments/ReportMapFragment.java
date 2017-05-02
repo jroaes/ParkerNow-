@@ -5,6 +5,7 @@ package com.estacionate.jd.parkernow.fragments;
  */
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,9 +14,17 @@ import android.view.ViewGroup;
 
 import com.estacionate.jd.parkernow.R;
 import com.estacionate.jd.parkernow.backend.Parking;
+import com.estacionate.jd.parkernow.backend.ParkingAll;
+import com.estacionate.jd.parkernow.map.LoadMarkers;
 import com.estacionate.jd.parkernow.utils.Constants;
 
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+
+import java.util.ArrayList;
 
 
 /**
@@ -51,8 +60,31 @@ public class ReportMapFragment extends MapFragment {
             this.mapView.getController().setCenter(new GeoPoint(Constants.concepcionLatitude, Constants.concepcionLongitude));
         }*/
 
-        Parking parking = new Parking();
-        parking.getAllParker();
+        GpsMyLocationProvider mLocation = new GpsMyLocationProvider(this.getContext());
+        MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(mLocation,this.mapView);
+        mLocationOverlay.enableMyLocation();
+        this.mapView.getOverlays().add(mLocationOverlay);
+
+        /*OverlayItem myLocationOverlayItem = new OverlayItem("Here", "Current Position", currentLocation);
+        Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.person);
+        myLocationOverlayItem.setMarker(myCurrentLocationMarker);
+
+        final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
+        items.add(myLocationOverlayItem);
+
+        ItemizedIconOverlay<OverlayItem> currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(items,
+                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        return true;
+                    }
+                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+                        return true;
+                    }
+                }, resourceProxy);
+        this.mapView.getOverlays().add(currentLocationOverlay);*/
+
+        LoadMarkers parkings = new LoadMarkers(this.mapView,new GeoPoint(Constants.concepcionLatitude, Constants.concepcionLongitude));
+
         Log.d(TAG, "End CreateView");
 
 

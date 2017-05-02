@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.estacionate.jd.parkernow.backend.Parking;
+import com.estacionate.jd.parkernow.backend.ParkingAll;
 
 import java.util.List;
 
@@ -14,10 +15,10 @@ import java.util.List;
 public class ServiceVisibilityController {
 
     private static ServiceVisibilityListener listener = null;
-    private static List<String> cachedMap;
+    private static List<Parking> cachedMap;
     private static String cachedBusStopCode;
 
-    public static List<String> getStateForServices(
+    public static List<Parking> getStateForServices(
             Context context, String busStop) {
 
         if (cachedBusStopCode != null && cachedBusStopCode.equals(busStop)) {
@@ -32,8 +33,8 @@ public class ServiceVisibilityController {
                 map.put(service.getServiceName(), VisibilityState.VISIBLE);
             }
         }*/
-        Parking parking = new Parking();
-        cachedMap = parking.getAllParkers();
+        ParkingAll parking = new ParkingAll();
+        cachedMap = parking.getAllParkings();
         cachedBusStopCode = busStop;
         return cachedMap;
     }

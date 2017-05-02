@@ -45,14 +45,16 @@ public class GetParkingsRequest extends Request {
             String precio;
             String dir;
             String[] latlng;
-            for(int i=0; i < response.length(); i++){
+            String id;
+            for (int i = 0; i < response.length(); i++) {
                 JSONObject response_object = response.getJSONObject(i);
                 precio = String.valueOf(response_object.getInt("precio"));
-                JSONObject ubicacion = response_object.getJSONObject("ubicacion");
-                dir = ubicacion.getString("direccion");
-                latlng = ubicacion.getString("coordenadas").split("\\[|\\]|\\,");
-                data += precio + "," + dir + "," + latlng[1] + "," + latlng[2];
-                if(!((i+1) >= response.length())){
+                id = response_object.getString("_id");
+                JSONObject ubicacion = response_object.getJSONObject("location");
+                dir = ubicacion.getString("address");
+                latlng = ubicacion.getString("coordinates").split("\\[|\\]|\\,");
+                data += id+","+precio + "," + dir + "," + latlng[1] + "," + latlng[2];
+                if (!((i + 1) >= response.length())) {
                     data += "&";
                 }
             }
