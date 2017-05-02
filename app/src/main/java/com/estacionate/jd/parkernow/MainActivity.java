@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.estacionate.jd.parkernow.fragments.ReportMapFragment;
+import com.estacionate.jd.parkernow.gps.CheckGPS;
 
 import org.osmdroid.config.Configuration;
 
@@ -40,8 +41,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //MapView map_layout = (MapView) findViewById(R.id.map_layout);
-        //map_layout.setTileSource(TileSourceFactory.MAPNIK);
 
 
         //Create the ReportMapFragment
@@ -52,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         fm.beginTransaction().add(R.id.container, reportMapFragment).commit();
         fm.executePendingTransactions();
 
+        //Verify if GPS is enable
+        new CheckGPS(ctx,fm);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
