@@ -14,39 +14,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * A class extending ARequest, specifically used to request a list of Buses given a BusStop
+ * Created by Jorge on 08-05-2017.
  */
-public class GetParkingsRequest extends Request {
-    private String id;
 
-    /**
-     * The constructor of GetBusesRequest
-     *
-     * @param pId The Id of the Parking to be requested
-     */
-    public GetParkingsRequest(
-            String pId) {
-        super(RequestUrlMapper.getUrlFor(RequestUrlMapper.GET_PARKER_METHOD));
-        this.id = pId;
+public class GetCloseParkingRequest extends Request {
+
+    private String UrlParams;
+
+    public GetCloseParkingRequest(Double lat, Double lng){
+        super(RequestUrlMapper.getUrlFor(RequestUrlMapper.GET_PARKER_WITH_PARAMS_METHOD));
+        this.UrlParams = "?lat="+lat.toString()+"&lng="+lng.toString();
     }
 
+    @Override
+    public String getUrlParams() {
+        return UrlParams;
+    }
 
-    public List<Map<String,String>> processResponse(String pResponse) {
-        try {
+    @Override
+    public List<Map<String,String>> processResponse(String rawResponse) {
+
+        try{
             List<Map<String,String>> list = new ArrayList<>();
-            JSONArray response = new JSONArray(pResponse);
-            String precio;
-            String dir;
+            String precio,dir,id,distance;
             String[] latlng;
-            String id;
+            JSONArray response = new JSONArray(rawResponse);
             for (int i = 0; i < response.length(); i++) {
                 Map<String,String> map = new ArrayMap<String,String>();
-                JSONObject response_object = response.getJSONObject(i);
-                precio = String.valueOf(response_object.getInt("precio"));
-                id = response_object.getString("_id");
-                JSONObject ubicacion = response_object.getJSONObject("location");
+                JSONObject response_obj = response.getJSONObject(i);
+                JSONObject obj = response_obj.getJSONObject("obj");
+                precio = String.valueOf(obj.getInt("precio"));
+                id = obj.getString("_id");
+                JSONObject ubicacion = obj.getJSONObject("location");
                 dir = ubicacion.getString("address");
                 latlng = ubicacion.getString("coordinates").split("\\[|\\]|\\,");
                 map.put("precio",precio);
@@ -56,18 +56,11 @@ public class GetParkingsRequest extends Request {
                 map.put("lng",latlng[2]);
                 list.add(map);
             }
-
-
             return list;
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("GetParkingsRequest", pResponse);
+            Log.e("GetCloseParkingRequest", rawResponse);
         }
         return null;
-    }
-
-    @Override
-    public String getUrlParams() {
-        return "";
     }
 }

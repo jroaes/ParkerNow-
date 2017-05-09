@@ -5,6 +5,7 @@ import com.estacionate.jd.parkernow.R;
 import com.estacionate.jd.parkernow.backend.Parking;
 import com.estacionate.jd.parkernow.backend.ParkingAll;
 import com.estacionate.jd.parkernow.map.layers.OverlayLayer;
+import com.estacionate.jd.parkernow.map.markers.ParkMarker;
 
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -24,6 +25,7 @@ public class LoadMarkers implements Observer {
 
     MapView mapView;
     GeoPoint userPosition;
+    ArrayList<ParkMarker> parkMarkers;
     private List<OverlayLayer> layers;
     private ParkingAll parkings;
 
@@ -31,6 +33,7 @@ public class LoadMarkers implements Observer {
         this.mapView = mapView;
         this.userPosition = userStartPoint;
         this.layers = new ArrayList<>();
+        this.parkMarkers = new ArrayList<ParkMarker>();
         initiallize();
     }
 
@@ -56,28 +59,27 @@ public class LoadMarkers implements Observer {
         parkings.addObserver(this);
     }
 
-    private void addToMap(){
-        List<Parking> Allparking = parkings.getAllParkings();
-        for(Parking parking : Allparking){
-            OverlayItem parking_item = new OverlayItem(parking.getName(),"",new GeoPoint(parking.getLat(),parking.getLng()));
-            parking_item.setMarker(ParkingNowApp.getAppContext().getDrawable(R.drawable.parking_ic));
-            final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
-            items.add(parking_item);
-            ItemizedIconOverlay<OverlayItem> currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(items,
-                    new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                        public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                            return true;
-                        }
-                        public boolean onItemLongPress(final int index, final OverlayItem item) {
-                            return true;
-                        }
-                    },ParkingNowApp.getAppContext());
-            this.mapView.getOverlays().add(currentLocationOverlay);
+    private void addToMap(String tag){
+        if(tag.equals("ParkingAll")) {
+            List<Parking> Allparking = parkings.getAllParkings();
+            for (Parking parking : Allparking) {
+                parkMarkers.add(new ParkMarker(parking,this.mapView));
+            }
+        }
+        else if(tag.equals("ParkingClose")){
+            deleteAllMarker();
+            List<Parking> Allparking = parkings.getAllParkings();
+        }
+    }
+
+    private void deleteAllMarker(){
+        for(ParkMarker parkingMarker: parkMarkers){
+            parkingMarker.remove();
         }
     }
 
     @Override
     public void update(Observable observable, Object o) {
-        addToMap();
+        addToMap(o.toString());
     }
 }

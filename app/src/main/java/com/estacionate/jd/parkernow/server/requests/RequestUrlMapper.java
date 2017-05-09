@@ -20,11 +20,13 @@ public class RequestUrlMapper {
     private static final Map<String, String> URL_MAP;
 
     public static final String GET_PARKER_METHOD = "estacionamientos";
+    public static final String GET_PARKER_WITH_PARAMS_METHOD = "estacionamientos";
 
 
     static {
         Map<String, String> urlMap = new HashMap<>();
         urlMap.put(GET_PARKER_METHOD, "/api/estacionamientos/");
+        urlMap.put(GET_PARKER_WITH_PARAMS_METHOD, "/api/estacionamientos");
         URL_MAP = Collections.unmodifiableMap(urlMap);
     }
 

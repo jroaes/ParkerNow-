@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.estacionate.jd.parkernow.ParkingNowApp;
 import com.estacionate.jd.parkernow.map.FragmentMapView;
 import com.estacionate.jd.parkernow.utils.Constants;
 
@@ -119,11 +120,11 @@ public abstract class MapFragment extends Fragment {
         this.mapView.setLayoutParams(params);
 
         /* Set map_layout style */
-        /*final MapBoxTileSource tileSource = new MapBoxTileSource("mapbox", 1, 20, 256, ".png");
-        tileSource.retrieveAccessToken(this.getContext());
-        tileSource.retrieveMapBoxMapId(this.getContext());
-        this.mapView.setTileSource(tileSource);*/
-        this.mapView.setTileSource(TileSourceFactory.MAPNIK);
+        final MapBoxTileSource tileSource = new MapBoxTileSource("mapbox", 1, 20, 256, ".png");
+        tileSource.retrieveAccessToken(ParkingNowApp.getAppContext());
+        tileSource.retrieveMapBoxMapId(ParkingNowApp.getAppContext());
+        this.mapView.setTileSource(tileSource);
+        //this.mapView.setTileSource(TileSourceFactory.PUBLIC_TRANSPORT);
 
         /* Set map_layout controls */
         this.mapView.setMultiTouchControls(true);
