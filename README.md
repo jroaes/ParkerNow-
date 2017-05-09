@@ -13,13 +13,14 @@ Dillinger uses a number of open source projects to work properly:
 * [OSM Bonus Pack](https://github.com/MKergall/osmbonuspack) - Additional Map Functions, Bubble Marker and Cluster.
 
 From [Back-End](https://github.com/jroaes/ParkerNow-Server):
-* [node.js] - evented I/O for the backend
-* [Express] - fast node.js network app framework [@tjholowaychuk]
+* [node.js](https://nodejs.org/) - evented I/O for the backend
+* [Express](http://expressjs.com) - fast node.js network app framework
 * [MongoDB](https://www.mongodb.com/es) - NoSQL BD 
 * [Heroku](https://www.heroku.com/) the server provider
 
 # Screenshots
 Some screenshots of application
+
 ![N|Solid](https://raw.githubusercontent.com/jroaes/ParkerNow-/master/screenshots/screenshot0.png)
 ![N|Solid](https://raw.githubusercontent.com/jroaes/ParkerNow-/master/screenshots/screenshot1.png)
 ![N|Solid](https://raw.githubusercontent.com/jroaes/ParkerNow-/master/screenshots/screenshot2.png)
